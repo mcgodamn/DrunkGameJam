@@ -14,6 +14,13 @@ public class DragObject : MonoBehaviour {
         rectTransform = GetComponent<RectTransform>();
 	}
 
+	void Update()
+	{
+        Vector2 localpoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, Input.mousePosition, Camera.main, out localpoint);
+		Debug.Log(localpoint);
+	}
+
 	public void OnBeginDrag()
 	{
 		originPos = transform.position;
@@ -23,7 +30,9 @@ public class DragObject : MonoBehaviour {
     {
         var InputPos = Input.mousePosition;
         InputPos.z = InputZ;
-        rectTransform.position = Camera.main.ScreenToWorldPoint(InputPos);
+        var pos = Camera.main.ScreenToWorldPoint(InputPos);
+		Debug.Log(pos);
+        rectTransform.position = pos;
 	}
 
 	public void OnEndDrag()
