@@ -323,7 +323,7 @@ MonoBehaviour:
     type: 2}
   verticalMagicalPrefab: {fileID: 1622508114837550, guid: e6dcfb01961284d43a3a6c1fb1320a50,
     type: 2}
-  timeLast: 3
+  timeLast: 5
 --- !u!222 &222398637917956586
 CanvasRenderer:
   m_ObjectHideFlags: 1

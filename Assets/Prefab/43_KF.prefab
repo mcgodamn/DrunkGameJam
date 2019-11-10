@@ -203,6 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7868a6cd2d0dcc4a9ac7dd7e22a884b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationDoneEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   eatenEvent:
     m_PersistentCalls:
       m_Calls:
@@ -223,7 +228,7 @@ MonoBehaviour:
   dropPosition: {x: -602.04, y: 200.8, z: 0}
   dragable: 1
   evolutionable: 1
-  edible: 0
+  edible: 1
   haveInitiateAnimation: 0
   isBelch: 0
   vomitSoundEffect: {fileID: 82657113196521194}

@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 82164094743338018}
   - component: {fileID: 82421365954296360}
   - component: {fileID: 114122687725418822}
+  - component: {fileID: 114960816307478402}
   m_Layer: 5
   m_Name: 42_fireball
   m_TagString: Untagged
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f18f72297249b42813660327b7a419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopTime: 0
+  loopTime: 1
   pos:
   - {x: -1057, y: -450}
   time: 0.8
@@ -323,6 +324,18 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114960816307478402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952021560758978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e493e7108b48c4a8a6cd01cd1c155b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burn: {fileID: 1409481524947710, guid: 06610fcab0f09e04b9f4fa1a8bbbcceb, type: 2}
 --- !u!222 &222408441401334622
 CanvasRenderer:
   m_ObjectHideFlags: 1

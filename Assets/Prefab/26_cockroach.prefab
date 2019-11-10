@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114032172309359964}
   - component: {fileID: 114574763749562008}
   - component: {fileID: 82279791342151354}
-  - component: {fileID: 114085785134299984}
+  - component: {fileID: 114745759129250018}
   m_Layer: 5
   m_Name: 26_cockroach
   m_TagString: Untagged
@@ -139,22 +139,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114085785134299984
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1548447299927304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f18f72297249b42813660327b7a419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loopTime: 5
-  pos:
-  - {x: 530, y: -471.13}
-  - {x: -513, y: -471.38}
-  time: 6
 --- !u!114 &114574763749562008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,6 +166,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 114745759129250018}
+          m_MethodName: OnEndDrag
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 5
@@ -189,6 +184,17 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114615063316341674}
+          m_MethodName: OnDragging
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 114745759129250018}
           m_MethodName: OnDragging
           m_Mode: 1
           m_Arguments:
@@ -243,6 +249,17 @@ MonoBehaviour:
   isBelch: 0
   vomitSoundEffect: {fileID: 82279791342151354}
   weedSoundEffect: {fileID: 0}
+--- !u!114 &114745759129250018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548447299927304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa39ce79b878c5469ae3a2be296f560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222905468860024794
 CanvasRenderer:
   m_ObjectHideFlags: 1

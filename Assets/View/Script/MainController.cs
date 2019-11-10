@@ -29,10 +29,14 @@ public class MainController : MonoBehaviour
         if (isGameStarted) {
 
             countTime += Time.deltaTime;
-            if (timeLimit != 61 - (int)countTime)
+            if (timeLimit != 120 - (int)countTime)
             {
-                timeLimit = 61 - (int)countTime;
-                countText.text = (61 - (int)countTime).ToString();
+                timeLimit = 120 - (int)countTime;
+                countText.text = (120 - (int)countTime).ToString();
+            }
+
+            if (timeLimit <= 0) {
+                GameStop();
             }
         }
 
@@ -51,7 +55,6 @@ public class MainController : MonoBehaviour
     {
         isGameStarted = true;
         countText.gameObject.SetActive(true);
-        countText.text = "60";
         BGM.Play();
     }
 
