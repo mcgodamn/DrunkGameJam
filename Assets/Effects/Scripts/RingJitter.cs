@@ -9,6 +9,7 @@ public class RingJitter : MonoBehaviour
     float count = 0;
     float horizonCount = 0;
     Vector2 defaultPosition;
+    bool isDragged = false;
 
     RectTransform rectTransform;
     void Start()
@@ -20,9 +21,21 @@ public class RingJitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        count += Time.deltaTime * 100;
-        horizonCount += Time.deltaTime;
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, Mathf.Sin(count) * 15 + defaultPosition.y);
-        // rectTransform.rotation = Quaternion.Euler(rectTransform.rotation.x, rectTransform.rotation.y, count);
+        if (!isDragged)
+        {
+            count += Time.deltaTime * 100;
+            horizonCount += Time.deltaTime;
+            rectTransform.anchoredPosition = new Vector2(Mathf.Sin(horizonCount) * 300 + defaultPosition.x, Mathf.Sin(count) * 15 + defaultPosition.y);
+            rectTransform.rotation = Quaternion.Euler(rectTransform.rotation.x, rectTransform.rotation.y, count);
+        }
+    }
+    public void OnDragging()
+    {
+        isDragged = true;
+    }
+
+    public void OnEndDrag()
+    {
+        isDragged = false;
     }
 }
