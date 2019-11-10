@@ -10,6 +10,7 @@ public enum GuyMouthType
 	MOUTH_CLOSE,
     MOUTH_PUKE,
     MOUTH_DAGER,
+    MOUTH_DRINK
 }
 
 public enum GuyHairType

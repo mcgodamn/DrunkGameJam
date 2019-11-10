@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PropController : MonoBehaviour
 {
 
+    public UnityEvent animationDoneEvent = new UnityEvent();
     public UnityEvent eatenEvent = new UnityEvent();
     public string id;
     [SerializeField]
@@ -32,11 +33,12 @@ public class PropController : MonoBehaviour
 
     private RectTransform rectTransform;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         img = GetComponent<Image>();
-        mouthRect = new Rect(-100, 100, 200, 200);
+        mouthRect = new Rect(0, 0, 200, 270);
         rectTransform = GetComponent<RectTransform>();
+        
     }
 
     // Update is called once per frame
@@ -82,15 +84,12 @@ public class PropController : MonoBehaviour
         EatSystemController.instance.OnPropEndDragging(this);
         if (CheckIsInMouth() && edible)
         {
-            //print("eat");
-            InstantiateAnimation();
-            //Eaten();
             Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
             CoroutineUtility.GetInstance().Do().Wait(0.5f).Then(() =>
             {
                 Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
             }).Go();
-
+            
             Eaten();
         }
 
@@ -102,22 +101,33 @@ public class PropController : MonoBehaviour
         rectTransform.anchoredPosition = dropPosition;
     }
 
-    private void InstantiateAnimation()
+    public void InstantiateAnimation()
     {
-        //if (weedSoundEffect.clip != null)//&& isWeed)
-        //{
-        //    weedSoundEffect.Play();
-        //}
-        //else
-        //{
-        //    vomitSoundEffect.Play();
-        //}
-        CoroutineUtility.GetInstance().Do().MoveUI(gameObject, new Vector2(526, 752), 0.8f)
-            .MoveUI(gameObject, new Vector2(-565, 825), 0.2f)            
+        
+        if ( weedSoundEffect!=null && weedSoundEffect.clip!=null)//&& isWeed)
+        {
+            weedSoundEffect.Play();
+        }
+        else
+        {
+            if(vomitSoundEffect!=null)
+            vomitSoundEffect.Play();
+        }
+
+        if (!haveInitiateAnimation)
+        {
+            return;
+        }
+        rectTransform.anchoredPosition = Vector2.zero;
+        Vector2 outSide = new Vector2(Random.Range(-400,400),800);
+        CoroutineUtility.GetInstance().Do().MoveUI(gameObject, outSide, 0.8f)
+            .MoveUI(gameObject, new Vector2(dropPosition.x,1000), 0.2f)
+
             .MoveUI(gameObject, dropPosition, 0.5f).Then(() =>
             {
                 //On Initialized
+                animationDoneEvent.Invoke();
             }).Go();
-        //rectTransform.anchoredPosition = dropPosition;
+        
     }
 }
