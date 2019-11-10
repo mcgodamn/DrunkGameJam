@@ -99,6 +99,7 @@ public class EatSystemController : MonoBehaviour
         }
         else
         {
+            Debug.Log(combinationStr);
             string last = combinationStr.Substring(combinationStr.Length - 2);
             string small = RandomSamllNumber(last);
             ans = small;
