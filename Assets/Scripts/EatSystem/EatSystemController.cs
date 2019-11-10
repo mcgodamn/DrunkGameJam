@@ -7,10 +7,17 @@ public class EatSystemController : MonoBehaviour
 {
     public static EatSystemController instance;
     [SerializeField]
+    private GameObject vomitObj;
+
+    [SerializeField]
     private List<Image> images;
     private Dictionary<string, string> EvolutionTable = new Dictionary<string, string>();
     private SortedSet<string> eatSet = new SortedSet<string>();
 
+    public List<int> propAppearSequence = new List<int>();
+    public List<GameObject> propPrefabs;
+
+    private Vector2 mouthPosition;
     private int BlockCnt = 0;
     // Use this for initialization
     void Start()
@@ -58,8 +65,7 @@ public class EatSystemController : MonoBehaviour
 
     public void Eat(string s, Image img)
     {
-        print(BlockCnt);
-        if (BlockCnt >= 3)
+        if(BlockCnt>=3)
         {
             print("full");
             return;
@@ -68,16 +74,19 @@ public class EatSystemController : MonoBehaviour
         images[BlockCnt].sprite = img.sprite;
         BlockCnt++;
         eatSet.Add(s);
+        propAppearSequence.Add(int.Parse(s));
     }
 
-    public string Evolution()
+    public void Evolution()
     {
         string combinationStr = CombineEatSet();
         if (combinationStr.Length == 2) //只有一個數，傳回自己
         {
+            print(combinationStr);
             eatSet.Clear();
             ClearBlock();
-            return combinationStr;
+            VomitPrefab(combinationStr);
+            return;// combinationStr;
         }
         else if (combinationStr.Length == 4) //兩個數，前面加0再hash
         {
@@ -103,7 +112,9 @@ public class EatSystemController : MonoBehaviour
         });
         eatSet.Clear();
         ClearBlock();
-        return ans;
+        print(ans);
+        VomitPrefab(ans);
+        return;// ans;
     }
 
     private void ClearBlock()
@@ -142,5 +153,53 @@ public class EatSystemController : MonoBehaviour
     {
         Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
         Debug.Log("Mouse Type Normal");
+    }
+
+    public void OnDrinkingAlcohol()
+    {
+        //play drink aniamtion and wait
+        //do evolution
+        Evolution();
+    }
+
+    private void CreatePrefab(string id)
+    {
+        int i = int.Parse(id);
+        bool blech = propPrefabs[i].GetComponent<PropController>().isBelch;
+        if (blech)
+        {
+            CreateBlech();
+        }
+        propAppearSequence.Add(i);
+        GameObject obj = Instantiate(propPrefabs[i], MainController.GetInstance().canvas.transform);
+        obj.GetComponent<PropController>().InstantiateAnimation();
+    }
+
+    private void CreateBlech()
+    {
+        CoroutineUtility.GetInstance().Do()
+        .Then(() =>
+        {
+            Guy.mouthType = GuyMouthType.MOUTH_DAGER;
+        }).Wait(0.8f)
+        .Then(() =>
+        {
+            Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
+        }).Go();
+    }
+
+    private void VomitPrefab(string id)
+    {
+        //enable vomit
+        CoroutineUtility.GetInstance().Do()
+        .Then(() =>
+        {
+            vomitObj.SetActive(true);
+        }).Wait(1.2f)
+        .Then(() =>
+        {
+            vomitObj.SetActive(false);
+        }).Go();
+        CreatePrefab(id);
     }
 }
