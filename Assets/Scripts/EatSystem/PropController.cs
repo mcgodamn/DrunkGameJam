@@ -82,8 +82,10 @@ public class PropController : MonoBehaviour
         if (!dragable)
             return;
         EatSystemController.instance.OnPropEndDragging(this);
+        Debug.Log("is in mouth = " + CheckIsInMouth());
         if (CheckIsInMouth() && edible)
         {
+            MainController.GetInstance().StartCount();
             Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
             CoroutineUtility.GetInstance().Do().Wait(0.5f).Then(() =>
             {
