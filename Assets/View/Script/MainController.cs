@@ -7,17 +7,14 @@ public class MainController : MonoBehaviour
 {
     private static MainController Instance;    //Singleton
     public GameObject canvas;
+    public int timeLimit;
+    public bool isGameStarted;
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        canvas = GameObject.Find("MainCanvas");
     }
 
     public static MainController GetInstance()

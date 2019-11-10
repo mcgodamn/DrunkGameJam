@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PropController : MonoBehaviour {
+public class PropController : MonoBehaviour
+{
 
+    public UnityEvent animationDoneEvent = new UnityEvent();
     public UnityEvent eatenEvent = new UnityEvent();
     public string id;
     [SerializeField]
@@ -18,7 +20,9 @@ public class PropController : MonoBehaviour {
     [SerializeField]
     private bool edible;
     [SerializeField]
-    bool haveInitiateAnimation;
+    private bool haveInitiateAnimation;
+
+    public bool isBelch;
 
     [SerializeField]
     private AudioSource vomitSoundEffect;
@@ -28,22 +32,26 @@ public class PropController : MonoBehaviour {
     private Rect mouthRect;
 
     private RectTransform rectTransform;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Awake()
+    {
         img = GetComponent<Image>();
-        mouthRect = new Rect(-95, -85, 200, 200);
+        mouthRect = new Rect(0, 0, 200, 270);
         rectTransform = GetComponent<RectTransform>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void OnDragging()
     {
         if (!dragable)
             return;
+        EatSystemController.instance.OnPropDragging(this);
         Vector2 mousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         //print(new Vector2(mousePosition.x * 1920f - 960f, mousePosition.y * 1080 - 540f));
         //mousePosition.z = 0;
@@ -73,9 +81,14 @@ public class PropController : MonoBehaviour {
     {
         if (!dragable)
             return;
+        EatSystemController.instance.OnPropEndDragging(this);
         if (CheckIsInMouth() && edible)
         {
-            //print("eat");
+            Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
+            CoroutineUtility.GetInstance().Do().Wait(0.5f).Then(() =>
+            {
+                Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
+            }).Go();
             
             Eaten();
         }
@@ -88,16 +101,33 @@ public class PropController : MonoBehaviour {
         rectTransform.anchoredPosition = dropPosition;
     }
 
-    private void InstantiateAnimation()
+    public void InstantiateAnimation()
     {
-        if(weedSoundEffect.clip!=null)//&& isWeed)
+        
+        if ( weedSoundEffect!=null && weedSoundEffect.clip!=null)//&& isWeed)
         {
             weedSoundEffect.Play();
         }
         else
         {
+            if(vomitSoundEffect!=null)
             vomitSoundEffect.Play();
         }
-        //rectTransform.anchoredPosition = dropPosition;
+
+        if (!haveInitiateAnimation)
+        {
+            return;
+        }
+        rectTransform.anchoredPosition = Vector2.zero;
+        Vector2 outSide = new Vector2(Random.Range(-400,400),800);
+        CoroutineUtility.GetInstance().Do().MoveUI(gameObject, outSide, 0.8f)
+            .MoveUI(gameObject, new Vector2(dropPosition.x,1000), 0.2f)
+
+            .MoveUI(gameObject, dropPosition, 0.5f).Then(() =>
+            {
+                //On Initialized
+                animationDoneEvent.Invoke();
+            }).Go();
+        
     }
 }
