@@ -145,7 +145,7 @@ public class EndCanvas : MonoBehaviour
         RightDoor.DOLocalMoveX(480, DoorCloseSec).onComplete = () =>
         {
             againButton.gameObject.SetActive(true);
-            againButton.image.DOFade(1, 0.5f);
+            againButton.image.DOFade(1, 2f);
         };
     }
 
