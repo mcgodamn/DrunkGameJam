@@ -24,6 +24,12 @@ public enum GuyGlassesType
     GLASSES_BROKEN,
 }
 
+public enum GuyType
+{
+    GUY_NORMAL,
+    GUY_RANBOW,
+}
+
 public class Guy : MonoBehaviour {
 
 	[Header("嘴巴")]
@@ -46,6 +52,29 @@ public class Guy : MonoBehaviour {
 
     [SerializeField]
     Image Glasses;
+
+    [Header("本體")]
+    [SerializeField]
+    GameObject RanbowGuy, NormalGuy;
+    static GuyType _guyType;
+    public static GuyType guyType
+    {
+        get { return _guyType; }
+        set
+        {
+            _guyType = value;
+			switch(value){
+				case GuyType.GUY_NORMAL:
+					instance.NormalGuy.SetActive(true);
+                    instance.RanbowGuy.SetActive(false);
+					break;
+                case GuyType.GUY_RANBOW:
+                    instance.NormalGuy.SetActive(false);
+                    instance.RanbowGuy.SetActive(true);
+                    break;
+			}
+        }
+    }
 
     static GuyMouthType _mouthType;
 	public static GuyMouthType mouthType
@@ -91,9 +120,56 @@ public class Guy : MonoBehaviour {
 			return;
 		}
         instance = this;
-
+		guyType = GuyType.GUY_NORMAL;
 		mouthType = GuyMouthType.MOUTH_NORMAL;
         hairType = GuyHairType.HAIR_NORMAL;
         glassesType = GuyGlassesType.GLASSES_NORMAL;
+	}
+
+	void Update()
+	{
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            guyType = GuyType.GUY_NORMAL;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            guyType = GuyType.GUY_RANBOW;
+        }
+		if (Input.GetKeyDown(KeyCode.A)){
+			mouthType = GuyMouthType.MOUTH_CLOSE;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            mouthType = GuyMouthType.MOUTH_DAGER;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            mouthType = GuyMouthType.MOUTH_NORMAL;
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            mouthType = GuyMouthType.MOUTH_OPEN;
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            mouthType = GuyMouthType.MOUTH_PUKE;
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+			hairType = GuyHairType.HAIR_NORMAL;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            hairType = GuyHairType.HAIR_RANBOW;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            glassesType = GuyGlassesType.GLASSES_NORMAL;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            glassesType = GuyGlassesType.GLASSES_BROKEN;
+        }
 	}
 }
