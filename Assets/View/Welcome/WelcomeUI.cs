@@ -25,9 +25,19 @@ public class WelcomeUI : MonoBehaviour
     [SerializeField]
     Button StartButton, InsturctionButton;
 
+    [SerializeField]
+    GameObject Insturction;
+
+    AudioSource bgm;
     void Start()
     {
         DOTween.Init();
+        bgm = GetComponent<AudioSource>();
+    }
+
+    public void TuggleInstruction(bool toggle)
+    {
+        Insturction.SetActive(toggle);
     }
 
     public void OnStartGame()
@@ -49,6 +59,13 @@ public class WelcomeUI : MonoBehaviour
                     };
                 };
                 flag.DOFade(0, scalSec / 2);
+                DOTween.To(
+                    ()=>bgm.volume,
+                    x => bgm.volume = x,
+                    0,scalSec
+                ).onComplete = ()=>{
+                    bgm.Stop();
+                };
             };
         };
 
