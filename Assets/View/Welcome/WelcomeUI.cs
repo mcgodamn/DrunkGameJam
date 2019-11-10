@@ -52,12 +52,6 @@ public class WelcomeUI : MonoBehaviour
                     v2 => canvasScaler.referenceResolution = v2,
                     new Vector2(screenScal2, canvasScaler.referenceResolution.y), scalSec
                 );
-                container.DOLocalMoveY(containerTween2, scalSec).onComplete = () =>
-                {
-                    whiteBackground.DOFade(0, backgroundFadeSec).onComplete = ()=>{
-                        gameObject.SetActive(false);
-                    };
-                };
                 flag.DOFade(0, scalSec / 2);
                 DOTween.To(
                     ()=>bgm.volume,
@@ -65,6 +59,14 @@ public class WelcomeUI : MonoBehaviour
                     0,scalSec
                 ).onComplete = ()=>{
                     bgm.Stop();
+                };
+                container.DOLocalMoveY(containerTween2, scalSec).onComplete = () =>
+                {
+                    whiteBackground.DOFade(0, backgroundFadeSec).onComplete = () =>
+                    {
+                        gameObject.SetActive(false);
+                        
+                    };
                 };
             };
         };
