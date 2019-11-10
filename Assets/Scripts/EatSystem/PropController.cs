@@ -18,7 +18,9 @@ public class PropController : MonoBehaviour {
     [SerializeField]
     private bool edible;
     [SerializeField]
-    bool haveInitiateAnimation;
+    private bool haveInitiateAnimation;
+
+    public bool isBelch;
 
     [SerializeField]
     private AudioSource vomitSoundEffect;
@@ -76,8 +78,8 @@ public class PropController : MonoBehaviour {
         if (CheckIsInMouth() && edible)
         {
             //print("eat");
-            
-            Eaten();
+            InstantiateAnimation();
+            //Eaten();
         }
 
         //reset position
@@ -90,14 +92,21 @@ public class PropController : MonoBehaviour {
 
     private void InstantiateAnimation()
     {
-        if(weedSoundEffect.clip!=null)//&& isWeed)
+        /*if(weedSoundEffect.clip!=null)//&& isWeed)
         {
             weedSoundEffect.Play();
         }
         else
         {
             vomitSoundEffect.Play();
-        }
+        }*/
+        CoroutineUtility.GetInstance().Do().MoveUI(gameObject, new Vector2(526, 752), 0.8f)
+            .MoveUI(gameObject, new Vector2(-565, 825), 0.2f)
+            
+            .MoveUI(gameObject, dropPosition, 0.5f).Then(() =>
+            {
+                //On Initialized
+            }).Go();
         //rectTransform.anchoredPosition = dropPosition;
     }
 }
