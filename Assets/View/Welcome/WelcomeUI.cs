@@ -56,6 +56,7 @@ public class WelcomeUI : MonoBehaviour
                 {
                     whiteBackground.DOFade(0, backgroundFadeSec).onComplete = ()=>{
                         gameObject.SetActive(false);
+                        
                     };
                 };
                 flag.DOFade(0, scalSec / 2);
