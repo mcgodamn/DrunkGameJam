@@ -13,6 +13,8 @@ public class EatSystemController : MonoBehaviour
     private List<Image> images;
     private Dictionary<string, string> EvolutionTable = new Dictionary<string, string>();
     private SortedSet<string> eatSet = new SortedSet<string>();
+    [SerializeField]
+    private Sprite UIMask;
 
     public List<int> propAppearSequence = new List<int>();
     public List<GameObject> propPrefabs;
@@ -122,7 +124,7 @@ public class EatSystemController : MonoBehaviour
     {
         foreach (Image img in images)
         {
-            img.sprite = null;
+            img.sprite = UIMask;
         }
         BlockCnt = 0;
 
