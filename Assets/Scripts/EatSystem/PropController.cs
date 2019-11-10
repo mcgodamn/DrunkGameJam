@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PropController : MonoBehaviour {
+public class PropController : MonoBehaviour
+{
 
     public UnityEvent eatenEvent = new UnityEvent();
     public string id;
@@ -30,22 +31,25 @@ public class PropController : MonoBehaviour {
     private Rect mouthRect;
 
     private RectTransform rectTransform;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         img = GetComponent<Image>();
-        mouthRect = new Rect(-95, -85, 200, 200);
+        mouthRect = new Rect(-100, 100, 200, 200);
         rectTransform = GetComponent<RectTransform>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void OnDragging()
     {
         if (!dragable)
             return;
+        EatSystemController.instance.OnPropDragging(this);
         Vector2 mousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         //print(new Vector2(mousePosition.x * 1920f - 960f, mousePosition.y * 1080 - 540f));
         //mousePosition.z = 0;
@@ -75,11 +79,19 @@ public class PropController : MonoBehaviour {
     {
         if (!dragable)
             return;
+        EatSystemController.instance.OnPropEndDragging(this);
         if (CheckIsInMouth() && edible)
         {
             //print("eat");
             InstantiateAnimation();
             //Eaten();
+            Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
+            CoroutineUtility.GetInstance().Do().Wait(0.5f).Then(() =>
+            {
+                Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
+            }).Go();
+
+            Eaten();
         }
 
         //reset position
@@ -92,17 +104,16 @@ public class PropController : MonoBehaviour {
 
     private void InstantiateAnimation()
     {
-        /*if(weedSoundEffect.clip!=null)//&& isWeed)
-        {
-            weedSoundEffect.Play();
-        }
-        else
-        {
-            vomitSoundEffect.Play();
-        }*/
+        //if (weedSoundEffect.clip != null)//&& isWeed)
+        //{
+        //    weedSoundEffect.Play();
+        //}
+        //else
+        //{
+        //    vomitSoundEffect.Play();
+        //}
         CoroutineUtility.GetInstance().Do().MoveUI(gameObject, new Vector2(526, 752), 0.8f)
-            .MoveUI(gameObject, new Vector2(-565, 825), 0.2f)
-            
+            .MoveUI(gameObject, new Vector2(-565, 825), 0.2f)            
             .MoveUI(gameObject, dropPosition, 0.5f).Then(() =>
             {
                 //On Initialized

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EatSystemController : MonoBehaviour {
+public class EatSystemController : MonoBehaviour
+{
     public static EatSystemController instance;
     [SerializeField]
     private List<Image> images;
@@ -11,8 +12,9 @@ public class EatSystemController : MonoBehaviour {
     private SortedSet<string> eatSet = new SortedSet<string>();
 
     private int BlockCnt = 0;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         instance = this;
         /*
         eatSet.Add("05");
@@ -24,11 +26,12 @@ public class EatSystemController : MonoBehaviour {
         ConstuctHashTable();
         //print(Evolution());
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     private void ConstuctHashTable()
     {
@@ -44,7 +47,7 @@ public class EatSystemController : MonoBehaviour {
     private string CombineEatSet()
     {
         string sortedStr = "";
-        
+
         foreach (string i in eatSet)
         {
             sortedStr += i;
@@ -53,14 +56,15 @@ public class EatSystemController : MonoBehaviour {
     }
 
 
-    public void Eat(string s,Image img)
+    public void Eat(string s, Image img)
     {
         print(BlockCnt);
-        if(BlockCnt>=3)
+        if (BlockCnt >= 3)
         {
             print("full");
             return;
         }
+        Debug.Log("Mouse Close");
         images[BlockCnt].sprite = img.sprite;
         BlockCnt++;
         eatSet.Add(s);
@@ -69,18 +73,18 @@ public class EatSystemController : MonoBehaviour {
     public string Evolution()
     {
         string combinationStr = CombineEatSet();
-        if(combinationStr.Length==2) //只有一個數，傳回自己
+        if (combinationStr.Length == 2) //只有一個數，傳回自己
         {
             eatSet.Clear();
             ClearBlock();
             return combinationStr;
         }
-        else if(combinationStr.Length==4) //兩個數，前面加0再hash
+        else if (combinationStr.Length == 4) //兩個數，前面加0再hash
         {
             combinationStr = "00" + combinationStr;
         }
-        string ans="";
-        if ( EvolutionTable.ContainsKey(combinationStr) )
+        string ans = "";
+        if (EvolutionTable.ContainsKey(combinationStr))
         {
             ans = EvolutionTable[combinationStr];
         }
@@ -90,6 +94,13 @@ public class EatSystemController : MonoBehaviour {
             string small = RandomSamllNumber(last);
             ans = small;
         }
+        CoroutineUtility.GetInstance().Do().Then(() =>
+        {
+            Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
+        }).Wait(0.5f).Then(() =>
+        {
+            Guy.mouthType = GuyMouthType.MOUTH_PUKE;
+        });
         eatSet.Clear();
         ClearBlock();
         return ans;
@@ -110,7 +121,7 @@ public class EatSystemController : MonoBehaviour {
         int m = int.Parse(max);
         int rand = Random.Range(1, m);
         string s = "";
-        if (rand<10)
+        if (rand < 10)
         {
             s += "0";
         }
@@ -118,4 +129,18 @@ public class EatSystemController : MonoBehaviour {
         return s;
     }
 
+    public void OnPropDragging(PropController prop)
+    {
+        if (!MainController.GetInstance().isGameStarted)
+        {
+            MainController.GetInstance().isGameStarted = true;
+        }
+        Guy.mouthType = GuyMouthType.MOUTH_OPEN;
+    }
+
+    public void OnPropEndDragging(PropController prop)
+    {
+        Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
+        Debug.Log("Mouse Type Normal");
+    }
 }

@@ -22,11 +22,6 @@ public class Magical : MonoBehaviour
 
     public int timeLast;
 
-    void Start()
-    {
-        OnEatten();
-    }
-
     // Update is called once per frame
     private void Update()
     {
