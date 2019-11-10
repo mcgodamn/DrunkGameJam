@@ -16,7 +16,7 @@ public class EndCanvas : MonoBehaviour
 
     void Start()
     {
-        // OnEndGame();
+        OnEndGame();
     }
 
     public void OnEndGame()
