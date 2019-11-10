@@ -116,7 +116,7 @@ public class PropController : MonoBehaviour
             vomitSoundEffect.Play();
         }
 
-        if (!haveInitiateAnimation)
+        if (haveInitiateAnimation)
         {
             return;
         }

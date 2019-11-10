@@ -13,10 +13,11 @@ public class EndCanvas : MonoBehaviour
 
     [SerializeField]
     float flowEndPostion, DoorCloseSec;
+    public static EndCanvas instance;
 
-    void Start()
+    private void Awake()
     {
-        OnEndGame();
+        instance = this;
     }
 
     public void OnEndGame()

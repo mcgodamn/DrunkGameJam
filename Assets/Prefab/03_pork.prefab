@@ -115,6 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7868a6cd2d0dcc4a9ac7dd7e22a884b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationDoneEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   eatenEvent:
     m_PersistentCalls:
       m_Calls:
@@ -132,7 +137,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   id: 03
-  dropPosition: {x: 0.000003814697, y: -247.1, z: 0}
+  dropPosition: {x: 233.4, y: -236.25, z: 0}
   dragable: 1
   evolutionable: 1
   edible: 1
@@ -161,6 +166,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 233.39998, y: -236.24997}
   m_SizeDelta: {x: 127, y: 94.7}
   m_Pivot: {x: 0.5, y: 0.5}

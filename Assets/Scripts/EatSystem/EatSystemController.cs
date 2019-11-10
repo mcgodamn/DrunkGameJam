@@ -10,6 +10,11 @@ public class EatSystemController : MonoBehaviour
     private GameObject vomitObj;
 
     [SerializeField]
+    private AudioSource eatingSound;
+    [SerializeField]
+    private AudioSource snoringSound;
+
+    [SerializeField]
     private List<Image> images;
     private Dictionary<string, string> EvolutionTable = new Dictionary<string, string>();
     private SortedSet<string> eatSet = new SortedSet<string>();
@@ -72,7 +77,7 @@ public class EatSystemController : MonoBehaviour
             print("full");
             return;
         }
-        Debug.Log("Mouse Close");
+        eatingSound.Play();
         images[BlockCnt].sprite = img.sprite;
         BlockCnt++;
         eatSet.Add(s);
@@ -101,7 +106,7 @@ public class EatSystemController : MonoBehaviour
         }
         else
         {
-            Debug.Log(combinationStr);
+            //Debug.Log(combinationStr);
             string last = combinationStr.Substring(combinationStr.Length - 2);
             string small = RandomSamllNumber(last);
             ans = small;
@@ -172,6 +177,7 @@ public class EatSystemController : MonoBehaviour
         if (blech)
         {
             CreateBlech();
+            return;
         }
         propAppearSequence.Add(i);
         GameObject obj = Instantiate(propPrefabs[i], MainController.GetInstance().canvas.transform);
@@ -184,6 +190,7 @@ public class EatSystemController : MonoBehaviour
         .Then(() =>
         {
             Guy.mouthType = GuyMouthType.MOUTH_DAGER;
+            snoringSound.Play();
         }).Wait(0.8f)
         .Then(() =>
         {

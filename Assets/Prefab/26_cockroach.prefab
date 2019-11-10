@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114032172309359964}
   - component: {fileID: 114574763749562008}
   - component: {fileID: 82279791342151354}
+  - component: {fileID: 114085785134299984}
   m_Layer: 5
   m_Name: 26_cockroach
   m_TagString: Untagged
@@ -138,6 +139,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114085785134299984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548447299927304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f18f72297249b42813660327b7a419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loopTime: 5
+  pos:
+  - {x: 530, y: -471.13}
+  - {x: -513, y: -471.38}
+  time: 6
 --- !u!114 &114574763749562008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,6 +213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7868a6cd2d0dcc4a9ac7dd7e22a884b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationDoneEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   eatenEvent:
     m_PersistentCalls:
       m_Calls:
@@ -242,6 +264,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -513, y: -471.38}
   m_SizeDelta: {x: 313.3, y: 137.24}
   m_Pivot: {x: 0.5, y: 0.5}

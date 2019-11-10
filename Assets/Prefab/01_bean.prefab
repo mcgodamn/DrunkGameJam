@@ -195,7 +195,7 @@ MonoBehaviour:
   dragable: 1
   evolutionable: 1
   edible: 1
-  haveInitiateAnimation: 1
+  haveInitiateAnimation: 0
   isBelch: 0
   vomitSoundEffect: {fileID: 0}
   weedSoundEffect: {fileID: 0}
