@@ -18,8 +18,12 @@ public class PropController : MonoBehaviour {
     [SerializeField]
     private bool edible;
     [SerializeField]
-    bool animatable;
+    bool haveInitiateAnimation;
 
+    [SerializeField]
+    private AudioSource vomitSoundEffect;
+    [SerializeField]
+    private AudioSource weedSoundEffect;
     private Image img;
     private Rect mouthRect;
 
@@ -72,6 +76,7 @@ public class PropController : MonoBehaviour {
         if (CheckIsInMouth() && edible)
         {
             //print("eat");
+            
             Eaten();
         }
 
@@ -85,6 +90,14 @@ public class PropController : MonoBehaviour {
 
     private void InstantiateAnimation()
     {
+        if(weedSoundEffect.clip!=null)//&& isWeed)
+        {
+            weedSoundEffect.Play();
+        }
+        else
+        {
+            vomitSoundEffect.Play();
+        }
         //rectTransform.anchoredPosition = dropPosition;
     }
 }
