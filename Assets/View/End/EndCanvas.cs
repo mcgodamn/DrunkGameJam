@@ -11,13 +11,17 @@ public class EndCanvas : MonoBehaviour
     [SerializeField]
     RectTransform[] Pukes;
 
+	public static EndCanvas instance;
+
     [SerializeField]
     float flowEndPostion, DoorCloseSec;
-    public static EndCanvas instance;
 
-    private void Awake()
+	AudioSource[] sources;
+
+    void Start()
     {
         instance = this;
+		sources = GetComponents<AudioSource>();
     }
 
     public void OnEndGame()
@@ -42,6 +46,7 @@ public class EndCanvas : MonoBehaviour
     int maski = 0;
     void MaskExpand(float time, Action callback)
     {
+        sources[0].Play();
         if (time < 0.15f) time = 0.15f;
         DOTween.To(
                 () => Masks[maski].sizeDelta.x,
@@ -72,12 +77,9 @@ public class EndCanvas : MonoBehaviour
 
 	[SerializeField]
     Transform PropMother;
-
-    List<int> list = new List<int>();
     int propi = 0;
     void OnPukeProps()
     {
-        list.Add(1);
         PopProps(() =>
         {
 			OnFullScreenPukeFlow();
@@ -93,7 +95,9 @@ public class EndCanvas : MonoBehaviour
     float fullPropTime = 1;
     void PopProps(Action callback)
     {
-        var temp = Instantiate(TestObj, Vector2.zero, Quaternion.identity);
+        sources[1].Play();
+		var i = EatSystemController.instance.propAppearSequence[propi];
+        var temp = Instantiate(EatSystemController.instance.propPrefabs[i], Vector2.zero, Quaternion.identity);
         temp.transform.localScale = Vector2.zero;
 		temp.transform.SetParent(PropMother,true);
         var rotation = new Vector2(
@@ -111,7 +115,7 @@ public class EndCanvas : MonoBehaviour
         {
             rotate.Kill(true);
             propi++;
-            if (propi >= list.Count)
+            if (propi >= EatSystemController.instance.propAppearSequence.Count)
             {
                 callback.Invoke();
                 return;
@@ -122,6 +126,7 @@ public class EndCanvas : MonoBehaviour
 
     void OnFullScreenPukeFlow()
     {
+        sources[2].Play();
         float waitsec = 0;
         Tween completeTween = null;
         var tweens = new List<Tween>();
