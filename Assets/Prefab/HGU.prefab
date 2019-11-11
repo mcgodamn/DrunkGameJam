@@ -284,7 +284,7 @@ MonoBehaviour:
   dropPosition: {x: -602.04, y: 200.8, z: 0}
   dragable: 1
   evolutionable: 1
-  edible: 0
+  edible: 1
   haveInitiateAnimation: 0
   isBelch: 0
   vomitSoundEffect: {fileID: 82694461546247002}

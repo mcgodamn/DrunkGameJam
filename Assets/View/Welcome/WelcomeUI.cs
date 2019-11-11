@@ -55,8 +55,7 @@ public class WelcomeUI : MonoBehaviour
                 container.DOLocalMoveY(containerTween2, scalSec).onComplete = () =>
                 {
                     whiteBackground.DOFade(0, backgroundFadeSec).onComplete = ()=>{
-                        gameObject.SetActive(false);
-                        MainController.GetInstance().StartCount();
+                        gameObject.SetActive(false); 
                     };
                 };
                 flag.DOFade(0, scalSec / 2);

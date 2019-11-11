@@ -92,7 +92,7 @@ public class EndCanvas : MonoBehaviour
     }
 
     [SerializeField]
-    float fullPropTime = 1;
+    float fullPropTime = 0.01f;
     void PopProps(Action callback)
     {
         sources[1].Play();
@@ -103,15 +103,15 @@ public class EndCanvas : MonoBehaviour
         var rotation = new Vector2(
             UnityEngine.Random.Range(-1.0f, 1.0f),
             UnityEngine.Random.Range(-1.0f, 1.0f));
-        var dist = UnityEngine.Random.Range(200, 700);
+        var dist = (float)UnityEngine.Random.Range(200, 700);
         var dest = rotation.normalized * dist;
 
         Tween rotate = temp.transform.DORotate(new Vector3(0, 0, 360), 3, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
         rotate.Play();
-		Debug.Log(dest);
-        Debug.Log(dist);
-        temp.transform.DOScale(Vector3.one,3 * (dist / 700.0f));
-        temp.transform.DOLocalMove(dest, 3 * (dist / 700.0f)).onComplete = () =>
+        var count = fullPropTime * (dist / 700.0f);
+        Debug.Log(count);
+        temp.transform.DOScale(Vector3.one, count);
+        temp.transform.DOLocalMove(dest, count).onComplete = () =>
         {
             rotate.Kill(true);
             propi++;

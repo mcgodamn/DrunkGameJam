@@ -21,6 +21,8 @@ public class EatSystemController : MonoBehaviour
     [SerializeField]
     private Sprite UIMask;
 
+    private int WeedCnt = 0;
+
     public List<int> propAppearSequence = new List<int>();
     public List<GameObject> propPrefabs;
 
@@ -86,6 +88,7 @@ public class EatSystemController : MonoBehaviour
 
     public void Evolution()
     {
+
         string combinationStr = CombineEatSet();
         if (combinationStr.Length == 2) //只有一個數，傳回自己
         {
@@ -179,6 +182,11 @@ public class EatSystemController : MonoBehaviour
             CreateBlech();
             return;
         }
+        if(WeedCnt%3==2)
+        {
+            GameObject obb = Instantiate(propPrefabs[44], MainController.GetInstance().canvas.transform);
+            obb.GetComponent<PropController>().InstantiateAnimation();
+        }
         propAppearSequence.Add(i);
         GameObject obj = Instantiate(propPrefabs[i], MainController.GetInstance().canvas.transform);
         obj.GetComponent<PropController>().InstantiateAnimation();
@@ -200,6 +208,8 @@ public class EatSystemController : MonoBehaviour
 
     private void VomitPrefab(string id)
     {
+        WeedCnt++;
+
         //enable vomit
         CoroutineUtility.GetInstance().Do()
         .Then(() =>
