@@ -51,12 +51,12 @@ public class EatSystemController : MonoBehaviour
 
     private void ConstuctHashTable()
     {
-        string[] lines = System.IO.File.ReadAllLines("HashTable/table.txt");
-        foreach (string line in lines)
+        var txt = ((TextAsset)Resources.Load("HashTable/table")).text;
+        string[] lines = txt.Split('\n');
+        foreach (var line in lines)
         {
-            string key = line.Substring(0, 6);
-            string value = line.Substring(7);
-            EvolutionTable[key] = value;
+            string[] lineSplit = line.Split(' ', '　','	');
+            EvolutionTable[lineSplit[0]] = lineSplit[1];
         }
     }
 
