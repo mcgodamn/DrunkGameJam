@@ -8,10 +8,10 @@ public class WelcomeUI : MonoBehaviour
 {
 
     [SerializeField]
-    Transform leftDoor, rightDoor;
+    Transform leftDoor = null, rightDoor = null;
 
     [SerializeField]
-    Image whiteBackground, flag;
+    Image whiteBackground = null, flag = null;
 
     [SerializeField]
     float openDoorSec = 3, scalSec = 3, buttonFadeSec = 0.5f, backgroundFadeSec = 1, screenScal2 = 1100, containerTween2 = 150;
@@ -23,7 +23,7 @@ public class WelcomeUI : MonoBehaviour
     RectTransform container;
 
     [SerializeField]
-    Button StartButton, InsturctionButton;
+    Button StartButton = null, InsturctionButton = null;
 
     [SerializeField]
     GameObject Insturction;

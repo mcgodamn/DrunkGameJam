@@ -6,7 +6,7 @@ public class Fireball : MonoBehaviour {
     public GameObject burn;
 	// Use this for initialization
 	void Start () {
-        CoroutineUtility.GetInstance().Do().Wait(0.8f).Then(() =>
+        CoroutineUtility.instance.Do().Wait(0.8f).Then(() =>
         {
             Instantiate(burn);
         }).Go();

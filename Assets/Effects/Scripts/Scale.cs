@@ -14,7 +14,7 @@ public class Scale : MonoBehaviour
     float time;
     void Start()
     {
-        CoroutineQueue queue = CoroutineUtility.GetInstance().Do();
+        CoroutineQueue queue = CoroutineUtility.instance.Do();
         for (int i = 0; i < loopTime; i++)
         {
             for (int a = 0; a < scaleRate.Length; a++)

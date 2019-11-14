@@ -6,34 +6,33 @@ using UnityEngine.Events;
 
 public class CoroutineUtility : MonoBehaviour
 {
-    private static CoroutineUtility Instance;    //Singleton
-    private void Awake()
+    private static CoroutineUtility _instance;
+    public static CoroutineUtility instance
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
-
-    public static CoroutineUtility GetInstance()
-    {
-        if (Instance == null)
-            Instance = new GameObject("CoroutineUtility").AddComponent<CoroutineUtility>();
-        return Instance;
+        get
+        {
+            if (_instance == null)
+                _instance = new GameObject("CoroutineUtility").AddComponent<CoroutineUtility>();
+            return _instance;
+        }
     }
 
     //建立CoroutineQueue回傳並開始排序工作
     public CoroutineQueue Do()
     {
-        CoroutineQueue animObj = new CoroutineQueue(this);
-        return animObj;
+        return CoroutineQueue.GetQueue(this);
     }
 }
 
-public class CoroutineQueue
+public class CoroutineQueue : IDisposable
 {
-    List<IEnumerator> waitQueue;
+    public static CoroutineQueue GetQueue(CoroutineUtility utility)
+    {
+        return new CoroutineQueue(utility);
+    }
+
     CoroutineUtility coroutineUtility;
+    List<IEnumerator> waitQueue;
     bool isStartPlaying = false;
 
     public CoroutineQueue(CoroutineUtility utility)
@@ -205,11 +204,24 @@ public class CoroutineQueue
             yield return coroutineUtility.StartCoroutine(waitQueue[0]);
             waitQueue.RemoveAt(0);
         }
+
+        //Dispose self
+        CoroutineQueue.Dispose(this);
     }
 
     IEnumerator DoCall(UnityAction func)
     {
         func.Invoke();
         yield return null;
+    }
+
+    public void Dispose()
+    {
+        waitQueue = null;
+    }
+
+    public static void Dispose(CoroutineQueue q){
+        q.Dispose();
+        q = null;
     }
 }

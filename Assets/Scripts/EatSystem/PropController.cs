@@ -87,7 +87,7 @@ public class PropController : MonoBehaviour
         {
             MainController.GetInstance().StartCount();
             Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
-            CoroutineUtility.GetInstance().Do().Wait(0.5f).Then(() =>
+            CoroutineUtility.instance.Do().Wait(0.5f).Then(() =>
             {
                 Guy.mouthType = GuyMouthType.MOUTH_NORMAL;
             }).Go();
@@ -122,7 +122,7 @@ public class PropController : MonoBehaviour
         }
         rectTransform.anchoredPosition = Vector2.zero;
         Vector2 outSide = new Vector2(Random.Range(-400,400),800);
-        CoroutineUtility.GetInstance().Do().MoveUI(gameObject, outSide, 0.8f)
+        CoroutineUtility.instance.Do().MoveUI(gameObject, outSide, 0.8f)
             .MoveUI(gameObject, new Vector2(dropPosition.x,1000), 0.2f)
 
             .MoveUI(gameObject, dropPosition, 0.5f).Then(() =>

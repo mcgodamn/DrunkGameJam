@@ -14,7 +14,7 @@ public class EndCanvas : MonoBehaviour
 	public static EndCanvas instance;
 
     [SerializeField]
-    float flowEndPostion, DoorCloseSec;
+    float flowEndPostion = -2180, DoorCloseSec = 3;
 
 	AudioSource[] sources;
 
@@ -38,7 +38,7 @@ public class EndCanvas : MonoBehaviour
     RectTransform[] Masks;
 
     [SerializeField]
-    RectTransform LeftDoor, RightDoor;
+    RectTransform LeftDoor = null, RightDoor = null;
 
     [SerializeField]
     Button againButton;

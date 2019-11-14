@@ -13,7 +13,7 @@ public class MoveAround : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        CoroutineQueue queue = CoroutineUtility.GetInstance().Do();
+        CoroutineQueue queue = CoroutineUtility.instance.Do();
         for (int i = 0; i < loopTime; i++)
         {
             for (int a = 0; a < pos.Length; a++)

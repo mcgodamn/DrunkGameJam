@@ -23,7 +23,7 @@ public class AlcoholController : MonoBehaviour {
 
     public void DrinkAlcoholAnimation()
     {
-        CoroutineUtility.GetInstance().Do()
+        CoroutineUtility.instance.Do()
         .Then(() =>
         {
             drinkSound.Play();

@@ -88,8 +88,8 @@ public class EatSystemController : MonoBehaviour
 
     public void Evolution()
     {
-
         string combinationStr = CombineEatSet();
+        if (combinationStr.Length == 0) return;
         if (combinationStr.Length == 2) //只有一個數，傳回自己
         {
             print(combinationStr);
@@ -109,12 +109,11 @@ public class EatSystemController : MonoBehaviour
         }
         else
         {
-            //Debug.Log(combinationStr);
             string last = combinationStr.Substring(combinationStr.Length - 2);
             string small = RandomSamllNumber(last);
             ans = small;
         }
-        CoroutineUtility.GetInstance().Do().Then(() =>
+        CoroutineUtility.instance.Do().Then(() =>
         {
             Guy.mouthType = GuyMouthType.MOUTH_CLOSE;
         }).Wait(0.5f).Then(() =>
@@ -123,7 +122,6 @@ public class EatSystemController : MonoBehaviour
         });
         eatSet.Clear();
         ClearBlock();
-        print(ans);
         VomitPrefab(ans);
         return;// ans;
     }
@@ -194,7 +192,7 @@ public class EatSystemController : MonoBehaviour
 
     private void CreateBlech()
     {
-        CoroutineUtility.GetInstance().Do()
+        CoroutineUtility.instance.Do()
         .Then(() =>
         {
             Guy.mouthType = GuyMouthType.MOUTH_DAGER;
@@ -211,7 +209,7 @@ public class EatSystemController : MonoBehaviour
         WeedCnt++;
 
         //enable vomit
-        CoroutineUtility.GetInstance().Do()
+        CoroutineUtility.instance.Do()
         .Then(() =>
         {
             vomitObj.SetActive(true);

@@ -127,7 +127,7 @@ public class Guy : MonoBehaviour {
         glassesType = GuyGlassesType.GLASSES_NORMAL;
 	}
 
-	void Update()
+	void Test()
 	{
         if (Input.GetKeyDown(KeyCode.Z))
         {
