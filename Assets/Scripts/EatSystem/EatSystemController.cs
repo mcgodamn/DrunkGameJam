@@ -31,6 +31,7 @@ public class EatSystemController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
         instance = this;
         /*
         eatSet.Add("05");

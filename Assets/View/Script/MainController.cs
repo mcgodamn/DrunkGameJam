@@ -55,7 +55,7 @@ public class MainController : MonoBehaviour
     {
         isGameStarted = true;
         countText.gameObject.SetActive(true);
-        BGM.Play();
+        // BGM.Play();
     }
 
     public void GameStop() {

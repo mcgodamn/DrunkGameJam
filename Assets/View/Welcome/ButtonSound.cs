@@ -10,23 +10,21 @@ public enum BUTTON_SOUND_TYPE
 
 public class ButtonSound : MonoBehaviour
 {
+    [SerializeField]
+    AudioSource cursorSound;
 
-    AudioSource[] sources;
-
-    void Awake()
-    {
-        sources = GetComponents<AudioSource>();
-    }
+    [SerializeField]
+    AudioSource decisionSound;
 
     public void OnPlaySound(int type)
     {
         switch(type)
         {
             case (int)BUTTON_SOUND_TYPE.CURSOR:
-                sources[0].Play();
+                cursorSound.Play();
                 break;
             case (int)BUTTON_SOUND_TYPE.DECISION:
-                sources[1].Play();
+                decisionSound.Play();
                 break;
         }
     }

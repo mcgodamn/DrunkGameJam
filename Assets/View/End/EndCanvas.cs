@@ -109,7 +109,6 @@ public class EndCanvas : MonoBehaviour
         Tween rotate = temp.transform.DORotate(new Vector3(0, 0, 360), 3, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
         rotate.Play();
         var count = fullPropTime * (dist / 700.0f);
-        Debug.Log(count);
         temp.transform.DOScale(Vector3.one, count);
         temp.transform.DOLocalMove(dest, count).onComplete = () =>
         {
